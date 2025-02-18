@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Play, Pause, Volume2, VolumeX, Volume } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX, Volume, Github } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const audioSrc = "http://18.229.26.169:8040/stream";
 
@@ -67,32 +68,64 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#212225] text-white">
-      <nav className="absolute top-0 left-0 right-0 flex justify-around p-4 bg-[#333] shadow-md">
-        <Link href="/" className="text-white font-semibold px-4 py-2 rounded-full bg-[#444] hover:bg-[#555] transition-all">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#212225] text-white">
+      {/* Header */}
+      <nav className="w-full absolute top-0 left-0 right-0 flex justify-around p-4 bg-[#333] shadow-md">
+        <Link
+          href="/"
+          className="text-white font-semibold px-4 py-2 rounded-full bg-[#444] hover:bg-[#555] transition-all"
+        >
           Inicio
         </Link>
-        <Link href="/about" className="text-white font-semibold px-4 py-2 rounded-full bg-[#444] hover:bg-[#555] transition-all">
+        <Link
+          href="/about"
+          className="text-white font-semibold px-4 py-2 rounded-full bg-[#444] hover:bg-[#555] transition-all"
+        >
           Sobre Nosotros
         </Link>
-        <Link href="/contact" className="text-white font-semibold px-4 py-2 rounded-full bg-[#444] hover:bg-[#555] transition-all">
+        <Link
+          href="/contact"
+          className="text-white font-semibold px-4 py-2 rounded-full bg-[#444] hover:bg-[#555] transition-all"
+        >
           Contacto
         </Link>
       </nav>
-      <div className="bg-[#333] p-6 rounded-2xl shadow-lg text-center border-2 border-[#333]">
-        <h1 className="text-2xl font-bold mb-2 text-white">FM LATINA en Vivo</h1>
-        <p className="text-sm text-gray-300 mb-4">Disfruta de la mejor música en vivo!</p>
-        <div className="flex items-center space-x-4">
+
+      {/* Contenido principal */}
+      <div className="bg-[#333] p-6 rounded-2xl shadow-lg text-center border-2 border-[#333] mt-20">
+        <h1 className="text-2xl font-bold mb-2 text-white">
+          FM LATINA 107.9 en Vivo
+        </h1>
+
+        {/* Imagen entre el título y el párrafo */}
+        <Image
+          src="/layouts.jpg"
+          alt="Logo fm life"
+          width={250}
+          height={150}
+          className="mx-auto my-4 rounded-2xl"
+          style={{ objectFit: "contain" }}
+        />
+
+        <p className="text-sm text-gray-300 mb-4">
+          Disfruta de la mejor música en vivo!
+        </p>
+
+        <div className="flex items-center space-x-4 justify-center">
           <button
-            className="flex items-center bg-gray-600 hover:bg-gray-500 text-white font-bold py-3 px-6 rounded-full shadow-lg cursor-pointer transition-all"
+            className="flex items-center bg-[#444] hover:bg-[#555] text-white font-bold py-3 px-6 rounded-full shadow-lg cursor-pointer transition-all"
             onClick={togglePlay}
           >
             <div
               className={`flex items-center justify-center w-8 h-8 rounded-full ${
-                isPlaying ? "bg-red-600 animate-pulse" : "bg-gray-600"
+                isPlaying ? "bg-red-600 animate-pulse" : "bg-[#444]"
               }`}
             >
-              {isPlaying ? <Pause className="w-6 h-6 text-white" /> : <Play className="w-6 h-6 text-white" />}
+              {isPlaying ? (
+                <Pause className="w-6 h-6 text-white" />
+              ) : (
+                <Play className="w-6 h-6 text-white" />
+              )}
             </div>
             <span
               className={`ml-4 transition-all duration-500 ${
@@ -113,14 +146,29 @@ export default function Home() {
             style={{
               WebkitAppearance: "none",
               appearance: "none",
-              background: `linear-gradient(to right, white 0%, white ${volume * 100}%, gray ${volume * 100}%, gray 100%)`,
+              background: `linear-gradient(to right, white 0%, white ${
+                volume * 100
+              }%, gray ${volume * 100}%, gray 100%)`,
             }}
           />
           <button onClick={toggleMute} className="text-white">
-            {muted ? <VolumeX size={24} /> : volume > 0.5 ? <Volume2 size={24} /> : <Volume size={24} />}
+            {muted ? (
+              <VolumeX size={24} />
+            ) : volume > 0.5 ? (
+              <Volume2 size={24} />
+            ) : (
+              <Volume size={24} />
+            )}
           </button>
         </div>
       </div>
+
+      {/* Footer con borde redondeado y ancho extendido */}
+      <footer className="w-11/12 mx-auto bg-[#333] py-4 mt-8 rounded-xl">
+        <p className="text-center text-sm">
+          © 2025 Radio Life. Todos los derechos reservados.
+        </p>
+      </footer>
     </div>
   );
 }
